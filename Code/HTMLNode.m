@@ -238,6 +238,23 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (NSString *)nonCumulativeTextContent {
+    
+    NSMutableArray *parts = [NSMutableArray new];
+    for (HTMLTextNode *node in self.children) {
+        if ([node isKindOfClass:[HTMLTextNode class]]) {
+            [parts addObject:node.data];
+        }
+    }
+    
+    return [parts componentsJoinedByString:@""];
+}
+
+- (void)setNonCumulativeTextContent:(NSString *)textContent
+{
+    [self setTextContent:textContent];
+}
+
 - (NSArray *)textComponents
 {
     NSMutableArray *textComponents = [NSMutableArray new];

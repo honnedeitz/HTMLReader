@@ -91,6 +91,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) NSString *textContent;
 
 /**
+ The text content of the node only (text content of descendants not included). The setter replaces the node's text, removing all descendants.
+ */
+@property (copy, nonatomic) NSString *nonCumulativeTextContent;
+
+/**
     Returns the contents of each child text node. Only direct children are considered; no further descendants are included.
  */
 @property (readonly, copy, nonatomic) NSArray *textComponents;
