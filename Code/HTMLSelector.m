@@ -966,6 +966,70 @@ NSString * const HTMLSelectorLocationErrorKey = @"HTMLSelectorLocation";
     return nil;
 }
 
+- (HTMLArrayOf(HTMLElement *) *)nodesMatchingSelector:(NSString *) selectorString
+                                       andTextContent:(NSString*) textContent
+{
+    
+    return [self nodesMatchingSelector:selectorString textContent:textContent ignoreCase:NO useContains:NO];
+}
+
+- (HTMLArrayOf(HTMLElement *) *)nodesMatchingSelector:(NSString *) selectorString
+                           andTextContentIgnoringCase:(NSString*) textContent
+{
+    
+    return [self nodesMatchingSelector:selectorString textContent:textContent ignoreCase:YES useContains:NO];
+}
+
+- (HTMLArrayOf(HTMLElement *) *)nodesMatchingSelector:(NSString *) selectorString
+                                containingTextContent:(NSString*) textContent
+{
+    
+    return [self nodesMatchingSelector:selectorString textContent:textContent ignoreCase:NO useContains:YES];
+}
+
+- (HTMLArrayOf(HTMLElement *) *)nodesMatchingSelector:(NSString *) selectorString
+                    containingTextContentIgnoringCase:(NSString*) textContent
+{
+    
+    return [self nodesMatchingSelector:selectorString textContent:textContent ignoreCase:YES useContains:YES];
+}
+
+- (HTMLArrayOf(HTMLElement *) *)nodesMatchingSelector:(NSString *) selectorString
+                                          textContent:(NSString*) textContent
+                                           ignoreCase:(BOOL) ignoreCase
+                                          useContains:(BOOL) containsSearch
+{
+    
+    NSArray *selectorNodes = [self nodesMatchingSelector:selectorString];
+    
+    NSMutableArray *result = [NSMutableArray new];
+    
+    for (HTMLElement *el in selectorNodes) {
+        
+        NSString *elementContent;
+        
+        if (ignoreCase) {
+            elementContent = [el.nonCumulativeTextContent lowercaseString];
+            textContent = [textContent lowercaseString];
+        } else {
+            elementContent = el.nonCumulativeTextContent;
+        }
+        
+        if (containsSearch) {
+            if ([elementContent containsString:textContent]) {
+                [result addObject: el];
+            }
+        } else {
+            if ([elementContent isEqualToString:textContent]) {
+                [result addObject: el];
+            }
+        }
+    }
+    
+    return result;
+}
+
+
 @end
 
 HTMLNthExpression HTMLNthExpressionMake(NSInteger n, NSInteger c)

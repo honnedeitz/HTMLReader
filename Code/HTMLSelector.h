@@ -65,6 +65,22 @@ extern NSString * const HTMLSelectorLocationErrorKey;
 /// Returns the first node matched by selector, or nil if there is no such node. Throws an NSInvalidArgumentException if the selector could not be parsed.
 - (HTMLElement * __nullable)firstNodeMatchingParsedSelector:(HTMLSelector *)selector;
 
+/// Returns the nodes matched by selectorString whose text content equals textContent.
+/// Throws an NSInvalidArgumentException if selectorString cannot be parsed.
+- (HTMLArrayOf(HTMLElement *) *)nodesMatchingSelector:(NSString *) selectorString andTextContent:(NSString*) textContent;
+
+/// Returns the nodes matched by selectorString whose text content equals textContent ignoring case.
+/// Throws an NSInvalidArgumentException if selectorString cannot be parsed.
+- (HTMLArrayOf(HTMLElement *) *)nodesMatchingSelector:(NSString *) selectorString andTextContentIgnoringCase:(NSString*) textContent;
+
+/// Returns the nodes matched by selectorString whose text content contains textContent.
+/// Throws an NSInvalidArgumentException if selectorString cannot be parsed.
+- (HTMLArrayOf(HTMLElement *) *)nodesMatchingSelector:(NSString *) selectorString containingTextContent:(NSString*) textContent;
+
+/// Returns the nodes matched by selectorString whose text content contains textContent ignoring case.
+/// Throws an NSInvalidArgumentException if selectorString cannot be parsed.
+- (HTMLArrayOf(HTMLElement *) *)nodesMatchingSelector:(NSString *) selectorString containingTextContentIgnoringCase:(NSString*) textContent;
+
 @end
 
 /// HTMLNthExpression represents the expression in an :nth-child (or similar) pseudo-class.
